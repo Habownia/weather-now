@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function Nav(props) {
 	return (
 		<div className='navbar bg-base-100'>
