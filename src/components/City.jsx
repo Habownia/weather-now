@@ -246,7 +246,7 @@ function City(props) {
 
 	function setDate(plusDay, plusHour) {
 		const date = new Date();
-		let year = date.getFullYear();
+		const year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		if (month < 10) {
 			month = '0' + String(month);
@@ -261,7 +261,7 @@ function City(props) {
 		if (hour < 10) {
 			hour = '0' + String(hour);
 		}
-		let dateString = year + '-' + month + '-' + day + 'T' + hour + ':00';
+		const dateString = year + '-' + month + '-' + day + 'T' + hour + ':00';
 		return dateString;
 	}
 
@@ -270,7 +270,7 @@ function City(props) {
 	// ustawia już określoną wartość w obiekcie
 	useEffect(() => {
 		setEditedData((prevData) => {
-			let foundIndexes = data.hourly.time.indexOf(setDate(2, 2));
+			const foundIndexes = data.hourly.time.indexOf(setDate(2, 2));
 			return {
 				...prevData,
 				temperature: String(data.hourly.temperature_2m[foundIndexes]),
@@ -329,7 +329,6 @@ function City(props) {
 	return (
 		<div className='inline-block p-3 m-7 bg-slate-700 red'>
 			<h2 className='m-1 text-xl'>{props.city}</h2>
-			{/* Some icon */}
 			<p className='relative text-lg'>
 				{editedData.temperature}{' '}
 				<span className='absolute text-xs bottom-4 rignt-2'>°C</span>
