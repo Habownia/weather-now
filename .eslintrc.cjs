@@ -15,6 +15,6 @@ module.exports = {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
-	plugins: ['react'],
-	rules: { 'react/prop-types': 0 },
+	plugins: ['react', 'react-hooks'],
+	rules: { 'react/prop-types': 0, 'react-hooks/rules-of-hooks': 'error' },
 };
