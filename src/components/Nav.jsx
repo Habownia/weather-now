@@ -5,7 +5,11 @@ function Nav(props) {
 				<a className='text-xl normal-case btn btn-ghost'>WeatherNow</a>
 			</div>
 			<div className='flex-none gap-4 mr-6'>
-				<div className='tooltip tooltip-bottom' data-tip='Odśwież'>
+				<div
+					className='tooltip tooltip-bottom'
+					data-tip='Odśwież'
+					onClick={props.handleReload}
+				>
 					<div className='btn btn-ghost btn-circle '>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'

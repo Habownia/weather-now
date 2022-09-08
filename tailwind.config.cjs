@@ -1,4 +1,4 @@
-//importujemy paletę kolorów
+// importujemy paletę kolorów
 const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
@@ -7,7 +7,7 @@ module.exports = {
 	content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 	darkMode: 'class',
 	theme: {
-		//https://tailwindcss.com/docs/theme
+		// https://tailwindcss.com/docs/theme
 		extend: {
 			// możemy dodać własne zmienne np bg-primary, text-secondary
 			colors: {

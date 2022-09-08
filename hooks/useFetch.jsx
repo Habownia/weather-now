@@ -111,7 +111,7 @@ function useFetch(city, coords, isSetCities) {
 			console.log('inne zdarzenia meteorologiczne');
 		}
 		return (
-			<div className='flex py-2'>
+			<div className='flex gap-2'>
 				<img src={actualWeather} alt='pogoda' className=' mr-2' />
 				<p>{weatherPrescription}</p>
 			</div>

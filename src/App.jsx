@@ -7,12 +7,18 @@ import SetCites from './components/SetCities';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
-	const [city, setCity] = useState('Warszawa');
+	const [city, setCity] = useState('Dodaj element');
 	const [coords, setCoords] = useState();
 
 	function handleChange(e) {
 		setCity(e.target.value);
 	}
+
+	// const [seed, setSeed] = useState(1);
+
+	// function handleReload() {
+	// setSeed(Math.random());
+	// }
 
 	useEffect(() => {
 		setCoords(() => {
@@ -33,14 +39,22 @@ function App() {
 
 	const defaultSite = (
 		<>
-			<Nav handleChange={handleChange} city={city} isSetCites={false} />
+			<Nav
+				handleChange={handleChange}
+				// handleReload={handleReload}
+				city={city}
+				isSetCites={false}
+			/>
 			{city && coords && <City city={city} coords={coords} />}
 		</>
 	);
 
 	const setCitiesSite = (
 		<>
-			<Nav isSetCites={true} />
+			<Nav
+				// handleReload={handleReload}
+				isSetCites={true}
+			/>
 			<SetCites />
 		</>
 	);
@@ -49,7 +63,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={defaultSite} />
-					<Route path='test' element={setCitiesSite} />
+					<Route path='/test' element={setCitiesSite} />
 					<Route
 						path='*'
 						element={

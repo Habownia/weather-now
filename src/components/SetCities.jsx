@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import useFetch from '../../hooks/useFetch';
-
-import SetCitiesBox from './setCitesBox';
+import SetCitiesBox from './SetCitesBox';
 
 function SetCities() {
 	const [addedCity, setAddedCity] = useState('');
 	const [addedArray, setAddedArray] = useState(['Warszawa']);
-	const [reducedArray, setReducedArray] = useState(['Warszawa']);
+	const [reducedArray, setReducedArray] = useState(addedArray);
 
 	function handleChange(e) {
 		setAddedCity(e.target.value);
@@ -19,13 +17,18 @@ function SetCities() {
 	}
 
 	useEffect(() => {
-		setReducedArray(
+		setReducedArray(() => {
 			// usunięcie z tablicy wszystkich powtrórzeń
-			addedArray.reduce(
+			const unique = addedArray.reduce(
 				(unique, item) => (unique.includes(item) ? unique : [...unique, item]),
 				[]
-			)
-		);
+			);
+			// jeśli będzie wprowadzona pusta wartość [''] to ją usuwa z tablicy
+			if (unique.indexOf('') === 0) {
+				unique.shift();
+			}
+			return unique;
+		});
 	}, [addedArray]);
 
 	function setCoords(city) {
@@ -43,10 +46,25 @@ function SetCities() {
 		}
 	}
 
+	const [box, setBox] = useState();
+	useEffect(() => {
+		setBox(
+			reducedArray.map((item, index) => (
+				<SetCitiesBox
+					key={index}
+					city={reducedArray[index]}
+					coords={setCoords(reducedArray[index])}
+				/>
+			))
+		);
+	}, [reducedArray]);
+
+	console.log(box);
+
 	return (
 		<div>
 			Wybierz miasto które chcesz dodać:
-			<form className='flex flex-col w-40 gap-2' onSubmit={handleSave}>
+			<form className='flex flex-col w-40 gap-2 ' onSubmit={handleSave}>
 				<select
 					className='select select-bordered'
 					name='city'
@@ -64,8 +82,7 @@ function SetCities() {
 				</select>
 				<button className='btn'>Dodaj</button>
 			</form>
-			{/* <p>{reduced.toString()}</p> */}
-			<SetCitiesBox key={0} />
+			<div className='flex justify-center gap-3'>{box}</div>
 		</div>
 	);
 }
