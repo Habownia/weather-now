@@ -3,6 +3,7 @@ import { BsFillSunsetFill, BsFillSunriseFill } from 'react-icons/bs';
 
 function City(props) {
 	const { city, coords } = props;
+	console.log(city);
 	const data = useFetch(city, coords, false);
 
 	return (
@@ -17,15 +18,15 @@ function City(props) {
 			<p className='text-sm '>
 				{data.temp_max}°C / {data.temp_min}°C
 			</p>
-			<div className='mt-2'>{data.weathercode}</div>
+			<span className='mt-2'>{data.weathercode}</span>
 			<div className='mt-2'>
 				<p className='flex items-center gap-2'>
 					<BsFillSunriseFill size={22} />
-					<p className='font-bold'>{data.sunrise}</p>
+					<span className='font-bold'>{data.sunrise}</span>
 				</p>
 				<p className='flex items-center gap-2'>
 					<BsFillSunsetFill size={22} />{' '}
-					<p className='font-bold'>{data.sunset}</p>
+					<span className='font-bold'>{data.sunset}</span>
 				</p>
 			</div>
 		</div>

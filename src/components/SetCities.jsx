@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react';
 
 import SetCitiesBox from './SetCitesBox';
 
-function SetCities() {
+function SetCities(props) {
 	const [addedCity, setAddedCity] = useState('');
 	const [addedArray, setAddedArray] = useState(['Warszawa', 'Kair', 'Londyn']);
-	const [reducedArray, setReducedArray] = useState(addedArray);
+	// const [reducedArray, setReducedArray] = useState([
+	// 	'Warszawa',
+	// 	'Kair',
+	// 	'Londyn',
+	// ]);
 
 	function handleChange(e) {
 		setAddedCity(e.target.value);
@@ -17,7 +21,7 @@ function SetCities() {
 	}
 
 	useEffect(() => {
-		setReducedArray((prevArray) => {
+		props.setReducedArray((prevArray) => {
 			// usunięcie z tablicy wszystkich powtrórzeń
 			const unique = addedArray.reduce(
 				(unique, item) => (unique.includes(item) ? unique : [...unique, item]),
@@ -32,9 +36,6 @@ function SetCities() {
 	}, [addedArray]);
 
 	function handleDelete(city) {
-		console.log(
-			addedArray.filter((value, index, arr) => (value !== city ? value : ''))
-		);
 		setAddedArray((prevState) =>
 			addedArray.filter((value, index, arr) => (value !== city ? value : ''))
 		);
@@ -55,17 +56,11 @@ function SetCities() {
 		}
 	}
 
-	// const [seed, setSeed] = useState(1);
-
-	// function handleReload() {
-	// 	setSeed(Math.random());
-	// }
-
 	const [box, setBox] = useState();
 	useEffect(() => {
 		setBox((prev) => {
 			console.log(prev);
-			return reducedArray.map((item, index) => {
+			return props.reducedArray.map((item, index) => {
 				console.log(item);
 				// console.log(
 				// 	'index',
@@ -79,13 +74,13 @@ function SetCities() {
 					<SetCitiesBox
 						key={index}
 						city={item}
-						coords={setCoords(reducedArray[index])}
+						coords={setCoords(props.reducedArray[index])}
 						handleDelete={handleDelete}
 					/>
 				);
 			});
 		});
-	}, [reducedArray]);
+	}, [props.reducedArray]);
 
 	// console.log(box);
 

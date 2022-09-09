@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import useSettingCoords from '../hooks/useSettingCoords';
 
 import City from './components/City';
 import Nav from './components/Nav';
@@ -7,7 +8,6 @@ import SetCites from './components/SetCities';
 
 function App() {
 	const [city, setCity] = useState('Dodaj element');
-	const [coords, setCoords] = useState();
 
 	function handleChange(e) {
 		setCity(e.target.value);
@@ -19,22 +19,15 @@ function App() {
 	// setSeed(Math.random());
 	// }
 
-	useEffect(() => {
-		setCoords(() => {
-			switch (city) {
-				case 'Warszawa':
-					return { lat: '52.2297', lng: '21.0122' };
-				case 'Kair':
-					return { lat: '30.0571', lng: '31.2272' };
-				case 'Londyn':
-					return { lat: '51.507359', lng: '-0.136439' };
-				case 'Pekin':
-					return { lat: '39.9056', lng: '116.3958' };
-				case 'Canberra':
-					return { lat: '-35.2820', lng: '149.1286' };
-			}
-		});
-	}, [city]);
+	const coords = useSettingCoords(city);
+
+	const [reducedArray, setReducedArray] = useState([
+		'Warszawa',
+		'Kair',
+		'Londyn',
+	]);
+
+	console.log(reducedArray);
 
 	const defaultSite = (
 		<>
@@ -54,7 +47,7 @@ function App() {
 				// handleReload={handleReload}
 				isSetCites={true}
 			/>
-			<SetCites />
+			<SetCites reducedArray={reducedArray} setReducedArray={setReducedArray} />
 		</>
 	);
 	return (
