@@ -4,8 +4,8 @@ import SetCitiesBox from './SetCitesBox';
 
 function SetCities() {
 	const [addedCity, setAddedCity] = useState('');
-	const [addedArray, setAddedArray] = useState(['']);
-	const [reducedArray, setReducedArray] = useState(['']);
+	const [addedArray, setAddedArray] = useState(['Warszawa', 'Kair', 'Londyn']);
+	const [reducedArray, setReducedArray] = useState(addedArray);
 
 	function handleChange(e) {
 		setAddedCity(e.target.value);
@@ -17,30 +17,27 @@ function SetCities() {
 	}
 
 	useEffect(() => {
-		setReducedArray(() => {
+		setReducedArray((prevArray) => {
 			// usunięcie z tablicy wszystkich powtrórzeń
 			const unique = addedArray.reduce(
 				(unique, item) => (unique.includes(item) ? unique : [...unique, item]),
 				[]
 			);
 			// jeśli będzie wprowadzona pusta wartość [''] to ją usuwa z tablicy
-			if (unique.indexOf('')) {
+			if (unique.indexOf('') >= 0) {
 				unique.splice(unique.indexOf(''), 1);
 			}
-
 			return unique;
 		});
 	}, [addedArray]);
 
-	console.log(reducedArray);
-
 	function handleDelete(city) {
-		console.log(city);
-		setAddedArray((prevState) => {
-			// console.log(
-			addedArray.filter((value, index, arr) => (value !== city ? value : ''));
-			// );
-		});
+		console.log(
+			addedArray.filter((value, index, arr) => (value !== city ? value : ''))
+		);
+		setAddedArray((prevState) =>
+			addedArray.filter((value, index, arr) => (value !== city ? value : ''))
+		);
 	}
 
 	function setCoords(city) {
@@ -58,18 +55,36 @@ function SetCities() {
 		}
 	}
 
+	// const [seed, setSeed] = useState(1);
+
+	// function handleReload() {
+	// 	setSeed(Math.random());
+	// }
+
 	const [box, setBox] = useState();
 	useEffect(() => {
-		setBox(
-			reducedArray.map((item, index) => (
-				<SetCitiesBox
-					key={index}
-					city={reducedArray[index]}
-					coords={setCoords(reducedArray[index])}
-					handleDelete={handleDelete}
-				/>
-			))
-		);
+		setBox((prev) => {
+			console.log(prev);
+			return reducedArray.map((item, index) => {
+				console.log(item);
+				// console.log(
+				// 	'index',
+				// 	index,
+				// 	'item',
+				// 	item,
+				// 	'coords',
+				// 	setCoords(reducedArray[index])
+				// );
+				return (
+					<SetCitiesBox
+						key={index}
+						city={item}
+						coords={setCoords(reducedArray[index])}
+						handleDelete={handleDelete}
+					/>
+				);
+			});
+		});
 	}, [reducedArray]);
 
 	// console.log(box);
