@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import City from './components/City';
 import Nav from './components/Nav';
 import SetCites from './components/SetCities';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
 	const [city, setCity] = useState('Dodaj element');
@@ -63,7 +62,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={defaultSite} />
-					<Route path='/test' element={setCitiesSite} />
+					<Route path='setcities' element={setCitiesSite} />
 					<Route
 						path='*'
 						element={

@@ -1,4 +1,5 @@
 import useFetch from '../../hooks/useFetch';
+import { BsFillSunsetFill, BsFillSunriseFill } from 'react-icons/bs';
 
 function City(props) {
 	const { city, coords } = props;
@@ -16,9 +17,17 @@ function City(props) {
 			<p className='text-sm '>
 				{data.temp_max}°C / {data.temp_min}°C
 			</p>
-			{data.weathercode}
-			<p>Wschód: {data.sunrise}</p>
-			<p>Zachód: {data.sunset}</p>
+			<div className='mt-2'>{data.weathercode}</div>
+			<div className='mt-2'>
+				<p className='flex items-center gap-2'>
+					<BsFillSunriseFill size={22} />
+					<p className='font-bold'>{data.sunrise}</p>
+				</p>
+				<p className='flex items-center gap-2'>
+					<BsFillSunsetFill size={22} />{' '}
+					<p className='font-bold'>{data.sunset}</p>
+				</p>
+			</div>
 		</div>
 	);
 }

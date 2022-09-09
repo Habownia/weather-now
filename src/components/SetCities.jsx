@@ -4,8 +4,8 @@ import SetCitiesBox from './SetCitesBox';
 
 function SetCities() {
 	const [addedCity, setAddedCity] = useState('');
-	const [addedArray, setAddedArray] = useState(['Warszawa']);
-	const [reducedArray, setReducedArray] = useState(addedArray);
+	const [addedArray, setAddedArray] = useState(['']);
+	const [reducedArray, setReducedArray] = useState(['']);
 
 	function handleChange(e) {
 		setAddedCity(e.target.value);
@@ -24,12 +24,24 @@ function SetCities() {
 				[]
 			);
 			// jeśli będzie wprowadzona pusta wartość [''] to ją usuwa z tablicy
-			if (unique.indexOf('') === 0) {
-				unique.shift();
+			if (unique.indexOf('')) {
+				unique.splice(unique.indexOf(''), 1);
 			}
+
 			return unique;
 		});
 	}, [addedArray]);
+
+	console.log(reducedArray);
+
+	function handleDelete(city) {
+		console.log(city);
+		setAddedArray((prevState) => {
+			// console.log(
+			addedArray.filter((value, index, arr) => (value !== city ? value : ''));
+			// );
+		});
+	}
 
 	function setCoords(city) {
 		switch (city) {
@@ -54,19 +66,20 @@ function SetCities() {
 					key={index}
 					city={reducedArray[index]}
 					coords={setCoords(reducedArray[index])}
+					handleDelete={handleDelete}
 				/>
 			))
 		);
 	}, [reducedArray]);
 
-	console.log(box);
+	// console.log(box);
 
 	return (
-		<div>
-			Wybierz miasto które chcesz dodać:
-			<form className='flex flex-col w-40 gap-2 ' onSubmit={handleSave}>
+		<div className='flex flex-col items-center'>
+			<p className='my-5'>Wybierz miasto które chcesz dodać:</p>
+			<form className='flex flex-col w-56 gap-2 ' onSubmit={handleSave}>
 				<select
-					className='select select-bordered'
+					className='select select-bordered  text-lg pl-3'
 					name='city'
 					onChange={handleChange}
 					value={addedCity}
@@ -82,7 +95,7 @@ function SetCities() {
 				</select>
 				<button className='btn'>Dodaj</button>
 			</form>
-			<div className='flex justify-center gap-3'>{box}</div>
+			<div className='flex justify-center gap-3 flex-wrap'>{box}</div>
 		</div>
 	);
 }

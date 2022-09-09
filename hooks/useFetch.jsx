@@ -11,17 +11,19 @@ function useFetch(city, coords, isSetCities) {
 	const [data, setData] = useState();
 	const reloadEffect = isSetCities ? '' : coords;
 	useEffect(() => {
-		fetch(
-			`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`
-		)
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				}
-				throw new Error('Something went wrong');
-			})
-			.then((data) => setData(data))
-			.catch((err) => console.log(err));
+		if (coords) {
+			fetch(
+				`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&hourly=temperature_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`
+			)
+				.then((response) => {
+					if (response.ok) {
+						return response.json();
+					}
+					throw new Error('Something went wrong');
+				})
+				.then((data) => setData(data))
+				.catch((err) => console.log(err));
+		}
 	}, [reloadEffect]);
 
 	function setDate(plusDay, plusHour) {
@@ -117,8 +119,11 @@ function useFetch(city, coords, isSetCities) {
 			</div>
 		);
 	}
-
-	return editedData;
+	if (coords !== undefined) {
+		return editedData;
+	} else {
+		return false;
+	}
 }
 
 export default useFetch;
