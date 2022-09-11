@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
+import settingCoords from '../../hooks/settingCoords';
 
 import SetCitiesBox from './SetCitesBox';
 
 function SetCities(props) {
 	const [addedCity, setAddedCity] = useState('');
-	const [addedArray, setAddedArray] = useState(['Warszawa', 'Kair', 'Londyn']);
-	// const [reducedArray, setReducedArray] = useState([
-	// 	'Warszawa',
-	// 	'Kair',
-	// 	'Londyn',
-	// ]);
+	const [addedArray, setAddedArray] = useState(props.reducedArray);
 
 	function handleChange(e) {
 		setAddedCity(e.target.value);
@@ -21,7 +17,7 @@ function SetCities(props) {
 	}
 
 	useEffect(() => {
-		props.setReducedArray((prevArray) => {
+		props.setReducedArray(() => {
 			// usunięcie z tablicy wszystkich powtrórzeń
 			const unique = addedArray.reduce(
 				(unique, item) => (unique.includes(item) ? unique : [...unique, item]),
@@ -37,52 +33,23 @@ function SetCities(props) {
 
 	function handleDelete(city) {
 		setAddedArray((prevState) =>
-			addedArray.filter((value, index, arr) => (value !== city ? value : ''))
+			prevState.filter((value, index, arr) => (value !== city ? value : ''))
 		);
-	}
-
-	function setCoords(city) {
-		switch (city) {
-			case 'Warszawa':
-				return { lat: '52.2297', lng: '21.0122' };
-			case 'Kair':
-				return { lat: '30.0571', lng: '31.2272' };
-			case 'Londyn':
-				return { lat: '51.507359', lng: '-0.136439' };
-			case 'Pekin':
-				return { lat: '39.9056', lng: '116.3958' };
-			case 'Canberra':
-				return { lat: '-35.2820', lng: '149.1286' };
-		}
 	}
 
 	const [box, setBox] = useState();
 	useEffect(() => {
-		setBox((prev) => {
-			console.log(prev);
-			return props.reducedArray.map((item, index) => {
-				console.log(item);
-				// console.log(
-				// 	'index',
-				// 	index,
-				// 	'item',
-				// 	item,
-				// 	'coords',
-				// 	setCoords(reducedArray[index])
-				// );
-				return (
-					<SetCitiesBox
-						key={index}
-						city={item}
-						coords={setCoords(props.reducedArray[index])}
-						handleDelete={handleDelete}
-					/>
-				);
-			});
-		});
+		setBox(() =>
+			props.reducedArray.map((item, index) => (
+				<SetCitiesBox
+					key={index}
+					city={item}
+					coords={settingCoords(props.reducedArray[index])}
+					handleDelete={handleDelete}
+				/>
+			))
+		);
 	}, [props.reducedArray]);
-
-	// console.log(box);
 
 	return (
 		<div className='flex flex-col items-center'>

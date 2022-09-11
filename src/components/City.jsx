@@ -3,11 +3,10 @@ import { BsFillSunsetFill, BsFillSunriseFill } from 'react-icons/bs';
 
 function City(props) {
 	const { city, coords } = props;
-	console.log(city);
 	const data = useFetch(city, coords, false);
 
 	return (
-		<div className=' w-56 p-6 m-7 rounded-xl bg-slate-700 red flex flex-col items-center justify-center'>
+		<div className=' w-72 h-52  p-6 m-7 rounded-xl bg-slate-700 red flex flex-col items-center justify-center'>
 			<div className='flex items-center gap-2'>
 				<h2 className='m-1 text-xl'>{data.city}</h2>
 				<p className='relative text-xl'>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import useSettingCoords from '../hooks/useSettingCoords';
+import settingCoords from '../hooks/settingCoords';
 
 import City from './components/City';
 import Nav from './components/Nav';
@@ -19,15 +19,16 @@ function App() {
 	// setSeed(Math.random());
 	// }
 
-	const coords = useSettingCoords(city);
+	const coords = settingCoords(city);
 
-	const [reducedArray, setReducedArray] = useState([
-		'Warszawa',
-		'Kair',
-		'Londyn',
-	]);
-
-	console.log(reducedArray);
+	const [reducedArray, setReducedArray] = useState(
+		JSON.parse(localStorage.getItem('cities'))
+	);
+	// dodawanie elementu do local storage
+	useEffect(() => {
+		localStorage.setItem('cities', JSON.stringify(reducedArray));
+		// console.log(JSON.parse(localStorage.getItem('cities')));
+	}, [reducedArray]);
 
 	const defaultSite = (
 		<>
