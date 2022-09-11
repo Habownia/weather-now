@@ -26,16 +26,7 @@ function Nav(props) {
 						</svg>
 					</div>
 				</div>
-				{!props.isSetCites && (
-					<Link to='/setcities'>
-						<div className='tooltip tooltip-bottom' data-tip='Dodaj miasto'>
-							<div className='btn btn-ghost btn-circle'>
-								<MdPlaylistAdd size={35} />
-							</div>
-						</div>
-					</Link>
-				)}
-				{props.isSetCites && (
+				{props.isSetCites ? (
 					<Link to='/'>
 						<div className='tooltip tooltip-bottom' data-tip='Powrót'>
 							<div className='btn btn-ghost btn-circle'>
@@ -43,24 +34,31 @@ function Nav(props) {
 							</div>
 						</div>
 					</Link>
-				)}
-
-				{!props.isSetCites && (
-					<select
-						className='select select-bordered'
-						onChange={props.handleChange}
-						name='city'
-						value={props.city || ''}
-					>
-						<option disabled value=''>
-							Wybierz miasto
-						</option>
-						<option value='Warszawa'>Warszawa</option>
-						<option value='Kair'>Kair</option>
-						<option value='Londyn'>Londyn</option>
-						<option value='Pekin'>Pekin</option>
-						<option value='Canberra'>Canberra</option>
-					</select>
+				) : (
+					<>
+						<Link to='/setcities'>
+							<div className='tooltip tooltip-bottom' data-tip='Dodaj miasto'>
+								<div className='btn btn-ghost btn-circle'>
+									<MdPlaylistAdd size={35} />
+								</div>
+							</div>
+						</Link>
+						<select
+							className='select select-bordered'
+							onChange={props.handleChange}
+							name='city'
+							value={props.city || ''}
+						>
+							<option disabled value=''>
+								Wybierz miasto
+							</option>
+							<option value='Warszawa'>Warszawa</option>
+							<option value='Kair'>Kair</option>
+							<option value='Londyn'>Londyn</option>
+							<option value='Pekin'>Pekin</option>
+							<option value='Canberra'>Canberra</option>
+						</select>
+					</>
 				)}
 			</div>
 		</div>

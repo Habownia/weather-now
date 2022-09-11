@@ -42,7 +42,7 @@ function SetCities(props) {
 		setBox(() =>
 			props.reducedArray.map((item, index) => (
 				<SetCitiesBox
-					key={index}
+					key={item}
 					city={item}
 					coords={settingCoords(props.reducedArray[index])}
 					handleDelete={handleDelete}

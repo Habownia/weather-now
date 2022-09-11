@@ -5,9 +5,9 @@ function SetCitiesBox(props) {
 	const data = useFetch(props.city, props.coords, false);
 
 	// lazy loader uruchamia się gdy nie ma weathercode'a albo props.city nie są równe data.city
-	if (typeof data.weathercode === 'undefined' || props.city !== data.city) {
-		return <div>Lazyloader</div>;
-	}
+	// if (typeof data.weathercode === 'undefined' || props.city !== data.city) {
+	// 	return <div>Lazyloader</div>;
+	// }
 	return (
 		<>
 			{data && props.city === data.city && (
