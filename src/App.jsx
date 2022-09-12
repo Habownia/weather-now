@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Nav from './components/Nav';
 import City from './components/City';
@@ -35,13 +35,13 @@ function App() {
 	);
 	return (
 		<>
-			<BrowserRouter>
+			<HashRouter>
 				<Routes>
 					<Route path='/' element={defaultSite} />
 					<Route path='setcities' element={setCitiesSite} />
 					<Route path='*' element={<NotFound />} />
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</>
 	);
 }
