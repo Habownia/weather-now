@@ -1,5 +1,5 @@
 // importujemy paletę kolorów
-const colors = require('tailwindcss/colors');
+// const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 			colors: {
 				secondary: '#5865f2',
 				primary: '#202225',
-				gray: colors.neutral,
+				// gray: colors.neutral,
 				gray: {
 					900: '#202225',
 					800: '#2f3136',

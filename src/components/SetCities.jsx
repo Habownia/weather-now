@@ -52,7 +52,7 @@ function SetCities(props) {
 	}, [props.reducedArray]);
 
 	return (
-		<div className='flex flex-col items-center'>
+		<div className='min-h-[90vh] flex flex-col items-center pt-20 gap-5'>
 			<p className='my-5'>Wybierz miasto które chcesz dodać:</p>
 			<form className='flex flex-col w-56 gap-2 ' onSubmit={handleSave}>
 				<select
